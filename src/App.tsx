@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ColorfulMessage } from "./components/ColorfulMessage";
 
 export const App: React.FC = () => {
   console.log("--App--");
   const [num, setNum] = useState(0);
-  const [isShowFace, setIsShowFace] = useState(true);
+  const [isShowFace, setIsShowFace] = useState(false);
 
   const onClickButton = () => {
     setNum((prev) => prev + 1);
@@ -14,6 +14,16 @@ export const App: React.FC = () => {
   const onClickToggle = () => {
     setIsShowFace(!isShowFace);
   };
+
+  useEffect(() => {
+    if (num > 0) {
+      if (num % 3 === 0) {
+        isShowFace || setIsShowFace(true);
+      } else {
+        isShowFace && setIsShowFace(false);
+      }
+    }
+  }, [num]);
 
   return (
     <>
